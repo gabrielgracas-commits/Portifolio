@@ -1,23 +1,17 @@
-// Aguarda o carregamento completo do DOM antes de executar os scripts
 document.addEventListener('DOMContentLoaded', () => {
 
   // Seleciona o formulário de contato
   const contactForm = document.querySelector('.contact-form');
 
-  // Adiciona evento de submissão do formulário
   if (contactForm) {
     contactForm.addEventListener('submit', (event) => {
-      // Impede o comportamento padrão de recarregar a página
       event.preventDefault();
 
-      // Obtém o nome digitado pelo usuário
       const nomeInput = document.getElementById('nome');
-      const nome = nomeInput ? nomeInput.value : 'Visitante';
+      const nomeValido = nomeInput && nomeInput.value.trim() !== '' ? nomeInput.value.trim() : 'Visitante';
 
-      // Mensagem de confirmação amigável
-      alert(`Obrigado pelo contato, ${nome}! Sua mensagem foi enviada com sucesso.`);
+      alert(`Obrigado pelo contato, ${nomeValido}! Sua mensagem foi enviada com sucesso.`);
 
-      // Reseta os campos do formulário após o envio
       contactForm.reset();
     });
   }
@@ -29,8 +23,8 @@ document.addEventListener('DOMContentLoaded', () => {
     link.addEventListener('click', (event) => {
       const targetId = link.getAttribute('href');
       
-      // Verifica se o link é para uma seção interna (#)
-      if (targetId.startsWith('#')) {
+      // Valida se o link começa com # e não é apenas "#" isolado
+      if (targetId && targetId.startsWith('#') && targetId.length > 1) {
         event.preventDefault();
         const targetElement = document.querySelector(targetId);
 
